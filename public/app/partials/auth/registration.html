@@ -1,0 +1,19 @@
+<form class="form-signin" ng-submit="doRegistrationFn();">
+    <h2 class="form-signin-heading">registration now</h2>
+    <div class="login-wrap">
+        <p>Enter your personal details below</p>
+        <input type="text" class="form-control" placeholder="Full Name" ng-model="reg.name">
+        <input type="text" class="form-control" placeholder="Email" ng-model="reg.email">
+        <input type="password" class="form-control" placeholder="Password" ng-model="reg.password">
+        <input type="password" class="form-control" placeholder="Re-type Password" ng-model="reg.cpass">
+        <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+        <div class="registration">
+            Already Registered.
+            <a class="" href ui-sref="signin">
+                Login
+            </a>
+        </div>
+
+    </div>
+
+</form>

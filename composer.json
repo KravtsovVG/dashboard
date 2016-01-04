@@ -6,7 +6,10 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "firebase/php-jwt": "~2.0",
+        "guzzlehttp/guzzle": "~4.0",
+        "guzzlehttp/oauth-subscriber": "0.2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -26,7 +29,8 @@
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php"
-        ]
+        ],
+        "files": ["app/libraries/constant/constant.php"]
     },
     "scripts": {
         "post-root-package-install": [

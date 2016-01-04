@@ -1,0 +1,98 @@
+<style>
+    hr{
+        margin: 7px 0px;
+    }
+    .list-group{
+        margin-bottom: 10px;
+        padding: 0px 15px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <!--<header class="panel-heading tab-bg-dark-navy-blue">-->
+            <ul class="nav nav-tabs nav-justified ">
+                <li class="active"><a data-toggle="tab" href data-target="#pofile">Profile</a></li>
+                <li><a data-toggle="tab" href data-target="#change-password">Change Password</a></li>
+            </ul>
+            <!--</header>-->
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div id="pofile" class="tab-pane active">
+                        <div class="row">
+                            <form class="form" name="EditProfileForm" ng-submit="updateProfileFn()">
+
+                                <!--personal detail section-->
+                                <div class="list-group">
+                                    <div class="list-group-item">
+                                        Personal Detail <hr>
+                                        <div class="form-group clearfix">
+                                            <div class="col-sm-6">
+                                                <label> Name
+                                                    <span class="error" ng-show="EditProfileForm.name.$error.required" style="color:RED">*</span>
+                                                    <span class="valid" ng-show="EditProfileForm.name.$valid" style="color:#31B404">*</span>
+                                                </label>
+                                                <input type="text" name="name" class="form-control" ng-model="profile.name" required>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label> Email
+                                                    <span class="error" ng-show="EditProfileForm.email.$error.required" style="color:RED">*</span>
+                                                    <span class="valid" ng-show="EditProfileForm.email.$valid" style="color:#31B404">*</span>
+                                                </label>
+                                                <input type="email" name="email" class="form-control" ng-model="profile.email" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <div class="col-md-12">
+                                        <button type="submit" ng-disabled="EditProfileForm.$invalid" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="change-password" class="tab-pane ">
+                        <div class="row">
+                            <form name="updatePassword" ng-submit="updatePasswordFn()">
+                                <div class="form-group clearfix">
+                                    <div class="col-md-4">
+                                        <label>
+                                            Current Password
+                                            <span class="error" ng-show="updatePassword.current.$error.required" style="color:RED">*</span>
+                                            <span class="valid" ng-show="updatePassword.current.$valid" style="color:#31B404">*</span>
+                                        </label>
+                                        <input type="password" name="current" class="form-control" ng-model="passowrd.current" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            New Password
+                                            <span class="error" ng-show="updatePassword.password.$error.required" style="color:RED">*</span>
+                                            <span class="valid" ng-show="updatePassword.password.$valid" style="color:#31B404">*</span>
+                                        </label>
+                                        <input type="password" name="password" class="form-control" ng-model="passowrd.password" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            Current Password
+                                            <span class="error" ng-show="updatePassword.confirm.$error.required" style="color:RED">*</span>
+                                            <span class="valid" ng-show="updatePassword.confirm.$valid" style="color:#31B404">*</span>
+                                        </label>
+                                        <input type="password" name="confirm" class="form-control" ng-model="confirmpassword" required>
+                                        <span class="error" ng-show="confirmpassword && confirmpassword != passowrd.password" style="color:RED">Password Mismatch</span>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" ng-disabled="passowrd.password != confirmpassword || updatePassword.$invalid" class="btn btn-success">Update password</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

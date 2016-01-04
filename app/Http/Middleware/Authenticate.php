@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use ResponseManager;
 
-class Authenticate
-{
+class Authenticate {
+
     /**
      * Handle an incoming request.
      *
@@ -15,16 +16,12 @@ class Authenticate
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
-        if (Auth::guard($guard)->guest()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('login');
-            }
+    public function handle($request, Closure $next, $guard = null) {
+        if (!Auth::check()) {
+            return Response()->json(ResponseManager::getError('', 401, 'You are not authorized to access this. Plese login.'));
         }
 
         return $next($request);
     }
+
 }

@@ -3,6 +3,7 @@
 namespace Illuminate\Database\Query;
 
 use Closure;
+use RuntimeException;
 use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -1564,6 +1565,30 @@ class Builder
         }
 
         return true;
+    }
+
+    /**
+     * Execute a callback over each item while chunking.
+     *
+     * @param  callable  $callback
+     * @param  int  $count
+     * @return bool
+     *
+     * @throws \RuntimeException
+     */
+    public function each(callable $callback, $count = 1000)
+    {
+        if (is_null($this->orders) && is_null($this->unionOrders)) {
+            throw new RuntimeException('You must specify an orderBy clause when using the "each" function.');
+        }
+
+        return $this->chunk($count, function ($results) use ($callback) {
+            foreach ($results as $key => $value) {
+                if ($callback($item, $key) === false) {
+                    return false;
+                }
+            }
+        });
     }
 
     /**
