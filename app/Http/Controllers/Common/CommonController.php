@@ -6,13 +6,16 @@ use App\Http\Controllers\Controller;
 use ResponseManager;
 use Hash;
 use App\User;
+use App\Models\ProjectUser;
+use App\Models\Project;
 use Auth;
+use Session;
 use Request;
 
 class CommonController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth', ['except' => ['dbSetup']]);
+        $this->middleware('auth', ['except' => ['dbSetup', 'invitation']]);
     }
 
     /**
@@ -20,31 +23,6 @@ class CommonController extends Controller {
      *
      * @return Response
      */
-    public function dbSetup() {
-        $input = [];
-        $input['name'] = 'Rejeb Zorgani';
-        $input['username'] = 'admin';
-        $input['password'] = Hash::make('123');
-        $input['email'] = 'admin@gmail.com';
-        $input['user_type'] = USER_TYPE_ADMIN;
-
-        $exist = User::where('email', $input['email'])->count();
-
-        if ($exist) {
-            $message = 'Admin already exist';
-            return Response()->json(ResponseManager::getError('', 10, $message));
-        }
-
-        $user = User::create($input);
-        if ($user) {
-            $message = 'Admin Created successfully';
-            return Response()->json(ResponseManager::getResult($user, 10, $message));
-        } else {
-            $message = 'Error while creating admin, Try again';
-            return Response()->json(ResponseManager::getError('', 10, $message));
-        }
-    }
-
     public function profile() {
         if (Auth::check()) {
             $user = Auth::User()->toArray();
@@ -91,6 +69,41 @@ class CommonController extends Controller {
             return Response()->json(ResponseManager::getResult($input, 10, $message));
         } else {
             $message = 'Error in  updating user profile';
+            return Response()->json(ResponseManager::getError('', 10, $message));
+        }
+    }
+
+    public function invitation($code) {
+        if (Auth::check()) {
+            $string = base64_decode($code);
+            $ary = explode('-', $string);
+            $email = $ary[0];
+            $pId = $ary[1];
+            $user = User::where('email', $email)->first();
+            if ($user) {
+                $user = $user->toArray();
+                if (Auth::check()) {
+                    if (Auth::user()->email == $user['email']) {
+                        ProjectUser::where('project_id', $pId)->where('user_id', $user['id'])->update(['invitation' => 1]);
+                        $project = Project::find($pId)->toArray();
+                        $message = 'You are now member of project ' . $project['name'];
+                        return Response()->json(ResponseManager::getResult($ary, 10, $message));
+                    } else {
+                        Auth::logout();
+                        Session::flush();
+                        $message = 'Please login with the email id on which you receive the invitation.';
+                        return Response()->json(ResponseManager::getError('', 101, $message));
+                    }
+                } else {
+                    $message = 'Plese login to accept the invitation';
+                    return Response()->json(ResponseManager::getError('', 1010, $message));
+                }
+            } else {
+                $message = 'You are not register with us. Please register with us.';
+                return Response()->json(ResponseManager::getError('', 2020, $message));
+            }
+        } else {
+            $message = 'Plese login to accept the invitation';
             return Response()->json(ResponseManager::getError('', 10, $message));
         }
     }

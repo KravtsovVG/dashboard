@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 
-class University extends Model {
+class ProjectUser extends Model {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'universities';
+    protected $table = 'project_user';
     protected $primaryKey = 'id';
 
     /**
@@ -20,8 +20,16 @@ class University extends Model {
      *
      * @var array
      */
-    protected $fillable = ['id', 'name', 'description'];
+    protected $fillable = ['id', 'project_id', 'user_id', 'invitation', 'is_owner'];
     protected $hidden = ['created_at', 'updated_at'];
+
+    public function user() {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
+    public function project() {
+        return $this->hasOne('App\Models\Project', 'id', 'project_id');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -32,27 +40,14 @@ class University extends Model {
 
 
         $rule = array(
-            'name' => 'required|unique:universities',
+            'project_id' => 'required',
+            'user_id' => 'required',
         );
 
         $messages = array(
             'required' => 'The :attribute field is required.',
         );
 
-
-        $data = Validator::make($data, $rule, $messages);
-        return $data;
-    }
-
-    public static function validateUpdate($data, $id) {
-
-        $rule = array(
-            'name' => 'sometimes|required|unique:universities,name,' . $id . ',id',
-        );
-
-        $messages = array(
-            'required' => 'The :attribute field is required.',
-        );
 
         $data = Validator::make($data, $rule, $messages);
         return $data;

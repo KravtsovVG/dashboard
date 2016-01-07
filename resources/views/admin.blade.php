@@ -20,6 +20,9 @@
 
         <!--click-to-edit or edit-in-place-->
         <link href="app/bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+        
+        <!--ui-select-->
+        <link href="app/bower_components/ui-select/dist/select.min.css" rel="stylesheet">
 
         <!--Core CSS -->
         <link href="app/css/style.css" rel="stylesheet">
@@ -49,6 +52,9 @@
 
         <!-- Angular Libraries -->
         <script src="app/bower_components/angular/angular.min.js"></script>
+        
+        <!-- Angular Sanitize Libraries -->
+        <script src="app/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
         <!-- Angular Route -->
         <script src="app/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -66,16 +72,25 @@
         <!--click-to-edit or edit-in-place-->
         <script src="app/bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>
 
+        <!--ui-select-->
+        <script src="app/bower_components/ui-select/dist/select.min.js"></script>
+
         <!-- Page level Js (Angular Js Controller, Directive, Constant etc) -->
         <script src="app/js/directive.js"></script>
         <script src="app/js/constants.js"></script>
         <script src="app/partials/app.js"></script>
+        
+        <!-- Invitation Controller -->
+        <script src="app/partials/invitation.js"></script>
 
         <!--Dashboard Js-->
         <script src="app/partials/dashboard/dashboard.js"></script>
 
         <!--Profile Js-->
         <script src="app/partials/profile/profile.js"></script>
+
+        <!--Project Js-->
+        <script src="app/partials/project/project.js"></script>
 
     </body>
 

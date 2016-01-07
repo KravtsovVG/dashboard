@@ -22,6 +22,8 @@
     "angular-xeditable": "~0.1.9",
     "angular-bootstrap": "~0.14.3",
     "moment": "~2.10.6",
-    "satellizer": "~0.13.3"
+    "satellizer": "~0.13.3",
+    "ui-select": "angular-ui-select#~0.13.2",
+    "angular-sanitize": "~1.4.8"
   }
 }

@@ -1,4 +1,5 @@
-var Auth = angular.module('Auth', ['ui.router', 'blockUI', 'satellizer'])
+var modules = ['ui.router', 'blockUI', 'satellizer'];
+var Auth = angular.module('Auth', modules)
 
 Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authProvider) {
     blockUIConfig.message = '';
@@ -73,9 +74,9 @@ Auth.controller('LoginCtrl', function ($scope, AuthServices, $timeout, $auth) {
             if (res.data.data) {
                 var d = res.data.data;
                 $scope.reg = {
-                    name : d.name,
-                    email : d.email,
-                    google : d.sub,
+                    name: d.name,
+                    email: d.email,
+                    google: d.sub,
                 };
                 $(".googleReg").modal('show');
             } else {

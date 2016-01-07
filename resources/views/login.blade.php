@@ -50,6 +50,9 @@
 
         <!-- Auth Controller -->
         <script src="app/partials/auth/index.js"></script>
+        
+        <!-- Invitation Controller -->
+        <script src="app/partials/invitation.js"></script>
 
 
     </body>

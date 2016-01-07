@@ -35,25 +35,21 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/auth/signup', 'Common\LoginController@doSignup');
     Route::post('/auth/google', 'Common\LoginController@google');
     Route::post('/auth/google-signup', 'Common\LoginController@googleReg');
+    Route::get('/acceptInvitation/{code}', 'Common\CommonController@invitation');
     Route::get('/loggedinuser', 'Common\LoginController@logginuser');
     Route::get('/logout', 'Common\LoginController@logout');
-    Route::get('/db-setup', 'Common\CommonController@dbSetup');
 
     Route::post('/update-password', 'Common\CommonController@updatePassword');
     Route::post('/update-profile', 'Common\CommonController@updateProfile');
 
     //User Ctrl
     Route::resource('/user', 'UserController');
-    Route::post('/user/paginate', 'UserController@paginateUser');
-    Route::post('/user/activate/{user_id}', 'UserController@updateActive');
 
-    //University Master
-    Route::resource('/university', 'UniversityController');
-    Route::get('/university-course/{uni_id}', 'UniversityController@universityCourses');
+    //Project Master
+    Route::resource('/project', 'ProjectController');
+    Route::post('/delete-project-user', 'ProjectController@deleteProUser');
+    Route::post('/make-project-owner', 'ProjectController@makeProOwner');
 
-    //course Master
-    Route::resource('/course', 'CourseController');
 
-    //course Master
-    Route::resource('/usercourse', 'UserCourseController');
+    
 });

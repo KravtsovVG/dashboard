@@ -8,6 +8,7 @@ use Request;
 use Response;
 use App\User;
 use Hash;
+use Auth;
 
 class UserController extends Controller {
 
@@ -21,7 +22,7 @@ class UserController extends Controller {
      * @return Response
      */
     public function index() {
-        $users = User::where('user_type', USER_TYPE_MEMBER)->get()->toArray();
+        $users = User::where('id', '<>', Auth::User()->id)->get()->toArray();
         if (count($users) > 0) {
             $message = 'Success';
             return Response()->json(ResponseManager::getResult($users, 10, $message));
@@ -47,8 +48,6 @@ class UserController extends Controller {
      */
     public function store() {
         $input = Request::all();
-        $input['user_type'] = USER_TYPE_MEMBER;
-        $input['active'] = 1;
         $validation = User::validate($input);
         if ($validation->fails()) {
             $message = $validation->messages()->first();
@@ -128,38 +127,6 @@ class UserController extends Controller {
             return Response()->json(ResponseManager::getResult($delete, 10, $message));
         } else {
             $message = 'Error while deleting';
-            return Response()->json(ResponseManager::getError('', 10, $message));
-        }
-    }
-
-    public function paginateUser() {
-        $input = Request::all();
-        $page = ($input['page'] * 1) - 1;
-        $limit = $input['limit'] * 1;
-
-        $users = User::where('user_type', USER_TYPE_MEMBER)->take($limit)->skip($page * $limit);
-        if ($page == 0) {
-            $data['count'] = $users->count();
-        }
-
-        $data['list'] = $users->get()->toArray();
-        if (count($data['list']) > 0) {
-            $message = 'Success';
-            return Response()->json(ResponseManager::getResult($data, 10, $message));
-        } else {
-            $message = 'No more user found';
-            return Response()->json(ResponseManager::getError('', 10, $message));
-        }
-    }
-
-    public function updateActive($id) {
-        $input = Request::all();
-        $users = User::where('id', $id)->update($input);
-        if ($users > 0) {
-            $message = 'Success';
-            return Response()->json(ResponseManager::getResult($users, 10, $message));
-        } else {
-            $message = 'Error';
             return Response()->json(ResponseManager::getError('', 10, $message));
         }
     }

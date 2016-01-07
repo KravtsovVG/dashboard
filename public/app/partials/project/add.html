@@ -1,30 +1,46 @@
 
-<div class="modal fade bs-example-modal-lg universityAdd" tabindex="-1" data-backdrop="static" role="dialog" aria-hidden="false">
+<div class="modal fade bs-example-modal-lg projectAdd" tabindex="-1" data-backdrop="static" role="dialog" aria-hidden="false">
     <div class="modal-dialog" style="width: 60%">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Add University</h4>
+                <h4 class="modal-title" id="myModalLabel">Add Project</h4>
             </div>
-            <form class="form" name="addUniversityForm" ng-submit="addUniversityFn()">
+            <form class="form" name="addProjectForm" ng-submit="addProjectFn()">
                 <div class="panel-body">
                     <div class="form-group clearfix pull-in">
                         <div class="col-sm-6">
                             <label>
-                                Name
-                                <span class="error" ng-show="addUniversityForm.name.$error.required" style="color: RED">*</span>
-                                <span class="valid" ng-show="addUniversityForm.name.$valid" style="color: #31B404">*</span>
+                                Title
+                                <span class="error" ng-show="addProjectForm.name.$error.required" style="color: RED">*</span>
+                                <span class="valid" ng-show="addProjectForm.name.$valid" style="color: #31B404">*</span>
                             </label>
-                            <input type="text" name="name" class="form-control" ng-model="university.name" required />
+                            <input type="text" name="name" class="form-control" ng-model="project.name" required />
                         </div>
                         <div class="col-sm-6">
-                            <label>Description</label>
-                            <textarea name="description" class="form-control" ng-model="university.description"></textarea>
+                            <label>Project Users</label>
+                            <ui-select multiple ng-model="project.users" style="width: 100%">
+                                <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
+                                <ui-select-choices repeat="person as person in users">
+                                    <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                    <small>email: {{person.email}}</small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix pull-in">
+                        <div class="col-md-12">
+                            <label>
+                                Message
+                                <span class="error" ng-show="addProjectForm.message.$error.required" style="color: RED">*</span>
+                                <span class="valid" ng-show="addProjectForm.message.$valid" style="color: #31B404">*</span>
+                            </label>
+                            <textarea name="message" ng-model="project.message" class="form-control" required placeholder="Message to project user"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" ng-disabled="addUniversityForm.$invalid" class="btn btn-primary">Add</button>
+                    <button type="submit" ng-disabled="addProjectForm.$invalid" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>

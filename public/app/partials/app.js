@@ -1,7 +1,7 @@
 /**
  * Created by Gaurnag Ghinaiya on 20-07-2015.
  */
-var modules = ['ui.router', 'ui.bootstrap', 'Directives', 'Constants', 'blockUI', 'xeditable'];
+var modules = ['ui.router', 'ui.bootstrap', 'Directives', 'Constants', 'blockUI', 'xeditable', 'ui.select', 'ngSanitize'];
 
 var App = angular.module('PPO', modules)
         .run(
@@ -42,9 +42,12 @@ var App = angular.module('PPO', modules)
             };
         })
 
-        .config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $httpProvider) {
+        .config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $httpProvider, uiSelectConfig) {
             $httpProvider.interceptors.push('httpInterceptor')
             blockUIConfig.message = '';
+            uiSelectConfig.theme = 'bootstrap';
+//            uiSelectConfig.resetSearchInput = true;
+//            uiSelectConfig.appendToBody = true;
             $urlRouterProvider
                     .otherwise('/app/dashboard');
 
@@ -57,7 +60,7 @@ var App = angular.module('PPO', modules)
         })
 
 
-App.controller('AppCtrl', function ($scope, $rootScope, userType, AdminServices, $timeout, $interval, $state, $stateParams) {
+App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout, $interval, $state, $stateParams) {
 
     $scope.goTo = function (state, params) {
 
@@ -81,7 +84,6 @@ App.controller('AppCtrl', function ($scope, $rootScope, userType, AdminServices,
         AdminServices.loggedInUser().success(function (res) {
             if (res.flag) {
                 $rootScope.me = res.data;
-                console.log($rootScope.me);
             }
         })
     }
