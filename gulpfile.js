@@ -14,12 +14,3 @@ var elixir = require('laravel-elixir');
 elixir(function (mix) {
     mix.sass('app.scss');
 });
-
-elixir(function (mix) {
-    mix.styles([
-        'style.css',
-        'style-responsive.css',
-        'ns-default.css',
-        'ns-style-attached.css'
-    ], 'public/css/login.css', 'public/app/css/');
-});
