@@ -6,85 +6,38 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">View Project</h4>
             </div>
-            <div class="panel-body" ng-if="!project.owner">
+            <div class="panel-body">
                 <div class="form-group clearfix pull-in">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <label>Title</label>
                         <p>{{project.name}}</p>
                     </div>
-                    <div class="col-sm-6">
+                </div>
+                <div class="form-group clearfix pull-in">
+                    <div class="col-md-12">
                         <label>Project Users</label>
-                        <p>
-                            <span ng-repeat="usr in prousers">
-                                {{usr.name}}<span ng-if="!$last">,&nbsp;</span>
-                            </span>
-                        </p>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Owner</th>
+                            </tr>
+                            <tr ng-repeat="us in prousers">
+                                <td>{{$index + 1}}</td>
+                                <td>{{us.name}}</td>
+                                <td>
+                                    <a href ng-if="us.is_owner" class="text-success" >
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    <a href ng-if="!us.is_owner" class="text-danger" >
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
-            <form class="form" name="updateProjectForm" ng-submit="updateProjectFn()" ng-if="project.owner">
-                <div class="panel-body">
-                    <div class="form-group clearfix pull-in">
-                        <div class="col-sm-6">
-                            <label>
-                                Title
-                                <span class="error" ng-show="updateProjectForm.name.$error.required" style="color: RED">*</span>
-                                <span class="valid" ng-show="updateProjectForm.name.$valid" style="color: #31B404">*</span>
-                            </label>
-                            <input type="text" name="name" class="form-control" ng-model="project.name" required />
-                        </div>
-                        <div class="col-sm-6">
-                            <label>Project Users</label>
-                            <ui-select multiple ng-model="project.users" style="width: 100%">
-                                <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
-                                <ui-select-choices repeat="person as person in users">
-                                    <div ng-bind-html="person.name | highlight: $select.search"></div>
-                                    <small>email: {{person.email}}</small>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                    </div>
-                    <div class="form-group clearfix pull-in">
-                        <div class="col-md-12">
-                            <label>
-                                Message
-                                <span class="error" ng-show="updateProjectForm.message.$error.required" style="color: RED">*</span>
-                                <span class="valid" ng-show="updateProjectForm.message.$valid" style="color: #31B404">*</span>
-                            </label>
-                            <textarea name="message" ng-model="project.message" class="form-control" ng-required="project.users.length" placeholder="Message to project user"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group clearfix pull-in">
-                        <div class="col-md-12 text-right">
-                            <button type="submit" ng-disabled="updateProjectForm.$invalid" class="btn btn-primary">Update</button>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="form-group clearfix pull-in">
-                        <div class="col-md-12">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Action</th>
-                                </tr>
-                                <tr ng-repeat="us in prousers | filter:{ id: '!' + me.id}">
-                                    <td>{{$index + 1}}</td>
-                                    <td>{{us.name}}</td>
-                                    <td>
-                                        <button ng-if="!us.is_owner" class="btn btn-xs btn-danger" type="button" uib-tooltip="delete Member" ng-confirm-click confirmed-click="deleteProjectUserFn(us.pid,project.id)">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                        <button ng-if="!us.is_owner" class="btn btn-xs btn-success" type="button" uib-tooltip="Click to make owner" ng-confirm-click="Are you sure you want to make this user to owner of this project?" confirmed-click="makeProjectOwnerFn(us.pid,project.id)">
-                                            <i class="fa fa-bars"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>

@@ -20,7 +20,7 @@
 
         <!--click-to-edit or edit-in-place-->
         <link href="app/bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
-        
+
         <!--ui-select-->
         <link href="app/bower_components/ui-select/dist/select.min.css" rel="stylesheet">
 
@@ -35,7 +35,7 @@
 
     </head>
     <body ng-controller="AppCtrl">
-        
+
         <section id="container" ui-view=""></section>
 
         <!--Core js-->
@@ -52,7 +52,7 @@
 
         <!-- Angular Libraries -->
         <script src="app/bower_components/angular/angular.min.js"></script>
-        
+
         <!-- Angular Sanitize Libraries -->
         <script src="app/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
@@ -79,7 +79,7 @@
         <script src="app/js/directive.js"></script>
         <script src="app/js/constants.js"></script>
         <script src="app/partials/app.js"></script>
-        
+
         <!-- Invitation Controller -->
         <script src="app/partials/invitation.js"></script>
 

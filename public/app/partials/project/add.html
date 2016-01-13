@@ -17,26 +17,6 @@
                             </label>
                             <input type="text" name="name" class="form-control" ng-model="project.name" required />
                         </div>
-                        <div class="col-sm-6">
-                            <label>Project Users</label>
-                            <ui-select multiple ng-model="project.users" style="width: 100%">
-                                <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
-                                <ui-select-choices repeat="person as person in users">
-                                    <div ng-bind-html="person.name | highlight: $select.search"></div>
-                                    <small>email: {{person.email}}</small>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                    </div>
-                    <div class="form-group clearfix pull-in">
-                        <div class="col-md-12">
-                            <label>
-                                Message
-                                <span class="error" ng-show="addProjectForm.message.$error.required" style="color: RED">*</span>
-                                <span class="valid" ng-show="addProjectForm.message.$valid" style="color: #31B404">*</span>
-                            </label>
-                            <textarea name="message" ng-model="project.message" class="form-control" required placeholder="Message to project user"></textarea>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

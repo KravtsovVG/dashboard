@@ -28,9 +28,11 @@ class ProjectController extends Controller {
         $pId = Project::where('user_id', Auth::User()->id)->lists('id')->toArray();
         $proId = ProjectUser::where('user_id', Auth::User()->id)->lists('project_id')->toArray();
         $projIds = array_unique(array_merge($pId, $proId));
-        $projects = Project::with('users')->whereIn('id', $projIds)->get()->toArray();
-
+        $projects = Project::with(['user', 'users'])->whereIn('id', $projIds)->get()->toArray();
         if (count($projects) > 0) {
+            foreach ($projects as &$pro) {
+                array_push($pro['users'], $pro['user']);
+            }
             $message = 'Success';
             return Response()->json(ResponseManager::getResult($projects, 10, $message));
         } else {
@@ -63,20 +65,20 @@ class ProjectController extends Controller {
         }
         $project = Project::create($input);
         if ($project) {
-            if (array_key_exists('users', $input)) {
-                foreach ($input['users'] as $user) {
-                    $data = ['project_id' => $project['id'], 'user_id' => $user['id'], 'email' => $user['email']];
-                    ProjectUser::create($data);
-                    $email['email'] = $user['email'];
-                    $email['user'] = $user['name'];
-                    $email['msg'] = $input['message'];
-                    $email['pname'] = $project['name'];
-                    $email['code'] = base64_encode($email['email'] . '-' . $project['id']);
-                    Mail::send('emails.invite', $email, function( $message ) use ($email) {
-                        $message->to($email['email'])->subject(Auth::User()->name . ' want to add you to ' . $email['pname']);
-                    });
-                }
-            }
+//            if (array_key_exists('users', $input)) {
+//                foreach ($input['users'] as $user) {
+//                    $data = ['project_id' => $project['id'], 'user_id' => $user['id'], 'email' => $user['email']];
+//                    ProjectUser::create($data);
+//                    $email['email'] = $user['email'];
+//                    $email['user'] = $user['name'];
+//                    $email['msg'] = $input['message'];
+//                    $email['pname'] = $project['name'];
+//                    $email['code'] = base64_encode($email['email'] . '-' . $project['id']);
+//                    Mail::send('emails.invite', $email, function( $message ) use ($email) {
+//                        $message->to($email['email'])->subject(Auth::User()->name . ' want to add you to ' . $email['pname']);
+//                    });
+//                }
+//            }
             $message = 'Added Successfully.';
             return Response()->json(ResponseManager::getResult($project, 10, $message));
         } else {
@@ -92,6 +94,45 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function show($id) {
+        $project = Project::with(['user', 'users'])->find($id);
+        if ($project) {
+            $project = $project->toArray();
+            $user = Auth::User()->id;
+            $users = [];
+            $project['user']['is_owner'] = 1;
+            if ($user == $project['user_id']) {
+                $project['user']['owner'] = 1;
+            }
+
+            array_push($users, $project['user']);
+            if (count($project['users']) > 0) {
+                foreach ($project['users'] as &$us) {
+                    $us['user']['pid'] = $us['id'];
+                    if ($us['is_owner']) {
+                        $us['user']['is_owner'] = 1;
+                    }
+                    array_push($users, $us['user']);
+                }
+            }
+            unset($project['users']);
+            unset($project['user']);
+            $project['users'] = $users;
+            $message = 'Success.';
+            return Response()->json(ResponseManager::getResult($project, 10, $message));
+        } else {
+            $message = 'Something went wrong. Please try again.';
+            return Response()->json(ResponseManager::getError('', 10, $message));
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id) {
+        //
         $project = Project::with(['user', 'users'])->find($id);
         if ($project) {
             $project = $project->toArray();
@@ -129,16 +170,6 @@ class ProjectController extends Controller {
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  int  $id
@@ -156,6 +187,8 @@ class ProjectController extends Controller {
             foreach ($input['users'] as $user) {
                 $data = ['project_id' => $id, 'user_id' => $user['id']];
                 $chkExist = ProjectUser::where('project_id', $id)->where('user_id', $user['id'])->count();
+                print_r($chkExist);
+                exit;
                 if ($chkExist == 0) {
                     ProjectUser::create($data);
                     $email['email'] = $user['email'];
@@ -229,7 +262,7 @@ class ProjectController extends Controller {
     }
 
     public function makeProOwner() {
-        $input = Request::all();
+        $input = Request::all(); // project_id,id
         //chk login user is whether project owner or not
         $project = Project::with(['user', 'users'])->find($input['project_id']);
         if ($project) {

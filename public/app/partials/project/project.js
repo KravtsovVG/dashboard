@@ -21,22 +21,35 @@ Project.config(function ($stateProvider) {
                 url: '/add',
                 templateUrl: 'app/partials/project/add.html',
                 controller: 'AddProjectCtrl',
-                resolve: {
-                    Users: function (ProjectService) {
-                        return ProjectService.getUser();
-                    },
-                }
             })
             .state('app.project.view', {
                 url: '/:id/view',
                 templateUrl: 'app/partials/project/view.html',
                 controller: 'ViewEditProjectCtrl',
                 resolve: {
-                    Users: function (ProjectService) {
-                        return ProjectService.getUser();
-                    },
                     Project: function (ProjectService, $stateParams) {
                         return ProjectService.viewProject($stateParams.id);
+                    },
+                }
+            })
+
+            .state('app.projectsetting', {
+                url: '/:id/setting',
+                templateUrl: 'app/partials/project/setting.html',
+                controller: 'SettingProjectCtrl',
+                resolve: {
+                    Project: function (ProjectService, $stateParams) {
+                        return ProjectService.editProject($stateParams.id);
+                    },
+                }
+            })
+            .state('app.projectsetting.add', {
+                url: '/add',
+                templateUrl: 'app/partials/project/invite.html',
+                controller: 'invitePeopleCtrl',
+                resolve: {
+                    Users: function (ProjectService) {
+                        return ProjectService.getUser();
                     },
                 }
             })
@@ -58,13 +71,9 @@ Project.controller('ProjectCtrl', function ($scope, ProjectService, Projects) {
 
 });
 
-Project.controller('AddProjectCtrl', function ($scope, ProjectService, $timeout, Users) {
+Project.controller('AddProjectCtrl', function ($scope, ProjectService, $timeout) {
 
     $scope.project = {};
-    $scope.users = [];
-    if (Users.data.flag) {
-        $scope.users = Users.data.data;
-    }
 
     $timeout(function () {
         $(".projectAdd").modal('show');
@@ -86,7 +95,7 @@ Project.controller('AddProjectCtrl', function ($scope, ProjectService, $timeout,
     }
 });
 
-Project.controller('ViewEditProjectCtrl', function ($scope, ProjectService, Users, $timeout, Project, $stateParams) {
+Project.controller('ViewEditProjectCtrl', function ($scope, $timeout, Project) {
 
     $timeout(function () {
         $(".projectView").modal('show');
@@ -94,14 +103,85 @@ Project.controller('ViewEditProjectCtrl', function ($scope, ProjectService, User
             $scope.goTo('app.project');
         })
     }, true);
-
-    $scope.users = [];
     $scope.project = {};
 
-    if (Users.data.flag) {
-        $scope.users = Users.data.data;
+    if (Project.data.flag) {
+        $scope.project = Project.data.data;
+        $scope.prousers = $scope.project.users;
+        delete $scope.project.users;
+    } else {
+        $(".projectView").modal('hide');
     }
-    $scope.userListFn = function () {
+});
+
+Project.controller('SettingProjectCtrl', function ($scope, ProjectService, Project, $stateParams) {
+    $scope.project = {};
+
+    if (Project.data.flag) {
+        $scope.project = Project.data.data;
+        $scope.prousers = $scope.project.users;
+        delete $scope.project.users;
+    }
+
+    $scope.projectViewFn = function () {
+        ProjectService.viewProject($stateParams.id).success(function (res) {
+            if (res.flag) {
+                $scope.project = res.data;
+                $scope.prousers = $scope.project.users;
+                delete $scope.project.users;
+//                $scope.setFlash('s', res.message);
+            } else {
+                $scope.setFlash('e', res.message);
+            }
+        })
+    }
+
+    $scope.makeProjectOwnerFn = function (id) {
+        var obj = {
+            project_id: $stateParams.id * 1,
+            id: id
+        }
+        console.log(obj);
+        ProjectService.makeProjectOwner(obj).success(function (res) {
+            if (res.flag) {
+                $scope.setFlash('s', res.message);
+                $scope.projectViewFn();
+            } else {
+                $scope.setFlash('s', res.message);
+            }
+        })
+    }
+
+    $scope.deleteProjectUserFn = function (id) {
+        var obj = {
+            project_id: $stateParams.id * 1,
+            id: id
+        }
+        console.log(obj);
+        ProjectService.deleteProjectUser(obj).success(function (res) {
+            if (res.flag) {
+                $scope.setFlash('s', res.message);
+                $scope.projectViewFn();
+            } else {
+                $scope.setFlash('s', res.message);
+            }
+        })
+    }
+
+});
+
+Project.controller('invitePeopleCtrl', function ($scope, $timeout, Users, ProjectService) {
+    $timeout(function () {
+        $(".invitePeople").modal('show');
+        $('.invitePeople').on('hidden.bs.modal', function () {
+            $scope.goTo('app.projectsetting');
+        })
+    }, true);
+    $scope.pro = {
+        name : $scope.project.name
+    };
+    $scope.users = []
+    if (Users.data.flag) {
         $scope.users = Users.data.data;
         var users = []
         _.each($scope.users, function (usr) {
@@ -110,92 +190,23 @@ Project.controller('ViewEditProjectCtrl', function ($scope, ProjectService, User
             }
         })
         $scope.users = users;
-        console.log($scope.prousers);
-        console.log($scope.users);
-    }
-
-    if (Project.data.flag) {
-        $scope.project = Project.data.data;
-        $scope.prousers = $scope.project.users;
-        delete $scope.project.users;
-        $scope.userListFn();
     } else {
-        $(".projectView").modal('hide');
-    }
-
-    $scope.viewProjectFn = function () {
-        ProjectService.viewProject($stateParams.id).success(function (res) {
-            if (res.flag) {
-                $scope.project = res.data;
-                $scope.prousers = $scope.project.users;
-                delete $scope.project.users;
-                $scope.userListFn();
-            } else {
-                $(".projectView").modal('hide');
-            }
-        })
+        $(".invitePeople").modal('hide');
     }
 
     $scope.updateProjectFn = function () {
-        var obj = angular.copy($scope.project);
-        delete obj.owner;
+        var obj = angular.copy($scope.pro);
         console.log(obj);
-        ProjectService.updateProject(obj, obj.id).success(function (res) {
+        ProjectService.updateProject(obj, $scope.project.id).success(function (res) {
             if (res.flag) {
-                $(".projectView").modal('hide');
+                $(".invitePeople").modal('hide');
+                $scope.projectViewFn();
                 $scope.setFlash('s', res.message);
-                $scope.getProjectFn();
             } else {
                 $scope.setFlash('e', res.message);
             }
         })
     }
-
-    $scope.deleteProjectUserFn = function (id, proId) {
-        if (id) {
-            var obj = {
-                id: id,
-                project_id: proId,
-            }
-            ProjectService.deleteProjectUser(obj).success(function (res) {
-                if (res.flag) {
-                    _.each($scope.prousers, function (u, index) {
-                        if (u && u.pid == id) {
-                            $scope.prousers.splice(index, 1)
-                        }
-                    })
-                    $scope.userListFn();
-                    $scope.setFlash('s', res.message);
-                } else {
-                    $scope.setFlash('e', res.message);
-                }
-            })
-        } else {
-            $scope.setFlash('e', 'you can not remove this user');
-        }
-    }
-
-    $scope.makeProjectOwnerFn = function (id, proId) {
-        if (id) {
-            var obj = {
-                id: id,
-                project_id: proId,
-            }
-            console.log(obj);
-            ProjectService.makeProjectOwner(obj).success(function (res) {
-                if (res.flag) {
-                    $scope.viewProjectFn();
-                    $scope.setFlash('s', res.message);
-                } else {
-                    $scope.setFlash('e', res.message);
-                }
-            })
-        } else {
-            $scope.setFlash('e', 'you can not authorize to do it.');
-        }
-    }
-
-
 });
 
 Project.service('ProjectService', function ($http) {
@@ -211,6 +222,9 @@ Project.service('ProjectService', function ($http) {
         },
         viewProject: function (id) {
             return $http.get('project/' + id);
+        },
+        editProject: function (id) {
+            return $http.get('project/' + id + '/edit');
         },
         deleteProjectUser: function (obj) {
             return $http.post('delete-project-user', obj);

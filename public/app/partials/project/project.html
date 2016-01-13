@@ -22,11 +22,13 @@
                         <tr ng-repeat = "pro in projects| filter:search">
                             <td>{{$index + 1}}</td>
                             <td class="custom">
-                                {{pro.name}}
+                                <a href ui-sref="app.projectsetting({id:pro.id})" uib-tooltip="Project Setting">
+                                    {{pro.name}}
+                                </a>
                             </td>
                             <td class="custom">
                                 <span ng-repeat="usr in pro.users">
-                                    {{usr.user.name}}<span ng-if="!$last">,&nbsp;</span>
+                                    {{ usr.name ||usr.user.name}}<span ng-if="!$last">,&nbsp;</span>
                                 </span>
                             </td>
                             <td>

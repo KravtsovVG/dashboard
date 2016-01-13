@@ -1,0 +1,52 @@
+<div class="row form-group">
+    <div class="col-md-12 text-right">
+        <button class="btn btn-info" type="button" ui-sref="app.projectsetting.add">Invite More People</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading text-center fa-2x">
+                <b>
+                    <a href="#" editable-text="project.name" onbeforesave="checkName($data)">
+                        {{ project.name || 'empty' }}
+                    </a>
+                </b>
+            </header>
+            <div class="panel-body">
+                <div class="form-group clearfix pull-in">
+                    <div class="col-md-12">
+                        <label>Project Users</label>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Owner</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr ng-repeat="us in prousers">
+                                <td>{{$index + 1}}</td>
+                                <td>{{us.name}}</td>
+                                <td>
+                                    <a href ng-if="us.is_owner" class="text-success" >
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    <a href ng-if="!us.is_owner" ng-click="makeProjectOwnerFn(us.pid)" uib-tooltip="Click to make owner" class="text-danger" >
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href ng-if="us.pid && me.id != us.id" ng-confirm-click confirmed-click="deleteProjectUserFn(us.pid)" uib-tooltip="Click to remove project user" class="btn btn-xs btn-danger" >
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        </section>
+    </div>
+</div>
+
+<div ui-view></div>

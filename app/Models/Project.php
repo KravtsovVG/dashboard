@@ -56,8 +56,8 @@ class Project extends Model {
     public static function validateUpdate($data, $id) {
 
         $rule = array(
-            'name' => 'required|unique:projects,name,' . $id . ',id',
-            'user_id' => 'required',
+            'name' => 'sometimes|required|unique:projects,name,' . $id . ',id',
+            'user_id' => 'sometimes|required',
         );
 
         $messages = array(
