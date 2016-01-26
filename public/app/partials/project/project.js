@@ -168,6 +168,19 @@ Project.controller('SettingProjectCtrl', function ($scope, ProjectService, Proje
         })
     }
 
+    $scope.changeNameFn = function (data, id) {
+        var obj = {
+            name: data
+        }
+        ProjectService.updateProject(obj, id).success(function (res) {
+            if (res.flag) {
+                $scope.setFlash('s', res.message);
+            } else {
+                $scope.setFlash('s', res.message);
+            }
+        })
+    }
+
 });
 
 Project.controller('invitePeopleCtrl', function ($scope, $timeout, Users, ProjectService) {
@@ -178,7 +191,7 @@ Project.controller('invitePeopleCtrl', function ($scope, $timeout, Users, Projec
         })
     }, true);
     $scope.pro = {
-        name : $scope.project.name
+        name: $scope.project.name
     };
     $scope.users = []
     if (Users.data.flag) {
@@ -234,6 +247,6 @@ Project.service('ProjectService', function ($http) {
         },
         updateProject: function (obj, id) {
             return $http.put('project/' + id, obj);
-        },
+        }
     }
 });

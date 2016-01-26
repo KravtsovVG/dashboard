@@ -21,7 +21,7 @@
             <section class="panel">
                 <header class="panel-heading text-center fa-2x">
                     <b>
-                        <a href="#" editable-text="project.name" onbeforesave="checkName($data)">
+                        <a href="#" editable-text="project.name" onbeforesave="changeNameFn($data,project.id)">
                             {{ project.name || 'empty' }}
                         </a>
                     </b>
