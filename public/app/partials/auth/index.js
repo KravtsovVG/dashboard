@@ -13,7 +13,7 @@ Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authPr
                 controller: 'LoginCtrl'
             })
             .state('registration', {
-                url: '/forgotpwd',
+                url: '/registration',
                 templateUrl: 'app/partials/auth/registration.html',
                 controller: 'RegistrationCtrl'
             })
@@ -23,7 +23,8 @@ Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authPr
     });
 });
 
-Auth.controller('AppCtrl', function ($scope) {
+Auth.controller('AppCtrl', function ($scope, $rootScope) {
+    $rootScope.login = false;
     $scope.setFlash = function (mtype, msg, time) {
 
         var type;
@@ -54,7 +55,8 @@ Auth.controller('AppCtrl', function ($scope) {
     }
 })
 
-Auth.controller('LoginCtrl', function ($scope, AuthServices, $timeout, $auth) {
+Auth.controller('LoginCtrl', function ($scope, AuthServices, $timeout, $auth, $rootScope) {
+    $rootScope.login = true;
     $scope.login = {};
     $scope.doLoginFn = function () {
         AuthServices.doLogin($scope.login).success(function (res) {

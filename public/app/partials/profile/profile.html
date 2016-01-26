@@ -7,21 +7,30 @@
         padding: 0px 15px;
     }
 </style>
-<div class="row">
-    <div class="col-md-12">
-        <section class="panel">
-            <!--<header class="panel-heading tab-bg-dark-navy-blue">-->
-            <ul class="nav nav-tabs nav-justified ">
-                <li class="active"><a data-toggle="tab" href data-target="#pofile">Profile</a></li>
-                <li><a data-toggle="tab" href data-target="#change-password">Change Password</a></li>
-            </ul>
-            <!--</header>-->
-            <div class="panel-body">
+<section class="content-header">
+    <h1>
+        User Profile
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">User profile</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <!-- /.col -->
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href data-target="#pofile">Profile</a></li>
+                    <li><a data-toggle="tab" href data-target="#change-password">Change Password</a></li>
+                </ul>
                 <div class="tab-content tasi-tab">
                     <div id="pofile" class="tab-pane active">
                         <div class="row">
                             <form class="form" name="EditProfileForm" ng-submit="updateProfileFn()">
-
                                 <!--personal detail section-->
                                 <div class="list-group">
                                     <div class="list-group-item">
@@ -92,7 +101,13 @@
                         </div>
                     </div>
                 </div>
+                <!-- /.tab-content -->
             </div>
-        </section>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
     </div>
-</div>
+    <!-- /.row -->
+
+</section>
+<!-- /.content -->

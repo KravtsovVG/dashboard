@@ -187,8 +187,6 @@ class ProjectController extends Controller {
             foreach ($input['users'] as $user) {
                 $data = ['project_id' => $id, 'user_id' => $user['id']];
                 $chkExist = ProjectUser::where('project_id', $id)->where('user_id', $user['id'])->count();
-                print_r($chkExist);
-                exit;
                 if ($chkExist == 0) {
                     ProjectUser::create($data);
                     $email['email'] = $user['email'];

@@ -1,0 +1,136 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 26, 2016, 12:42:11 PM
+    Author     : FS5
+*/
+/*html{
+    height: 100% !important;
+}
+body{
+    min-height: 100% !important;
+}
+.content-wrapper{
+    min-height:100% !important;
+}
+
+.content{
+    min-height: 550px;
+}*/
+
+/*@media only screen and (min-height: 500px) {
+    .content-wrapper{
+        min-height:616px !important;
+    }   
+}*/
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+    /* Styles */
+    .content-wrapper{
+        min-height:950px  !important;
+    } 
+}
+
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+    /* Styles */
+    .content-wrapper{
+        min-height:950px  !important;
+    } 
+}
+
+
+/* iPhone 5 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+    .content-wrapper{
+        min-height:568px !important;
+    } 
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:568px !important;
+    } 
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:667px !important;
+    } 
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:667px !important;
+    } 
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:736px !important;
+    } 
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:736px !important;
+    } 
+}
+
+/* Samsung Galaxy S3 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:640px !important;
+    } 
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    /* Styles */
+     .content-wrapper{
+        min-height:640px !important;
+    } 
+}
+
+/* Samsung Galaxy S4 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+    /* Styles */
+     .content-wrapper{
+        min-height:640px !important;
+    } 
+    
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+    /* Styles */
+     .content-wrapper{
+        min-height:640px !important;
+    } 
+}
+
+/* Samsung Galaxy S5 ----------- */
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+    /* Styles */
+     .content-wrapper{
+        min-height:640px !important;
+    } 
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+    /* Styles */
+     .content-wrapper{
+        min-height:640px !important;
+    } 
+}

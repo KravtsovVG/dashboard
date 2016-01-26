@@ -1,26 +1,40 @@
-<form class="form-signin" ng-submit="doLoginFn()">
-    <h2 class="form-signin-heading">
-
-        SIGN IN NOW
-    </h2>
-    <div class="login-wrap">
-        <div class="user-login-info">
-            <input type="text" class="form-control" placeholder="User ID" autofocus ng-model="login.email">
-            <input type="password" class="form-control" placeholder="Password" ng-model="login.password">
-        </div>
-        <button class="btn btn-lg btn-login btn-block" type="submit">SIGN IN</button>
-        <div class="registration">
-            Don't have an account yet?
-            <a class="" href ui-sref="registration">
-                Create an account
-            </a>
-        </div>
-        <div class="login">
-            <button ng-click="authenticate('google');" type="button" class="btn btn-danger "><i class="fa fa-google-plus"></i> Google</button>
-        </div>
+<div class="login-box">
+    <div class="login-logo">
+        <a href><b>Dashboard</b></a>
     </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">SIGN IN NOW</p>
 
-</form>
+        <form ng-submit="doLoginFn()">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="User ID" autofocus ng-model="login.email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Password" ng-model="login.password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4 pull-right">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">SIGN IN</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <div class="social-auth-links text-center">
+            <p>- OR -</p>
+            <a href ng-click="authenticate('google');" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+                Google+</a>
+        </div>
+        <!-- /.social-auth-links -->
+
+        <a class="text-center" ui-sref="registration">Create an account</a>
+
+    </div>
+</div>
 
 
 <div class="modal fade googleReg" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" aria-hidden="false">

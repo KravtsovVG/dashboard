@@ -10,9 +10,10 @@
         <title>Admin Panel</title>
 
         <!--Bootstrap CSS-->
-        <link href="app/css/bootstrap.min.css" rel="stylesheet">
+        <link href="app/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
-        <!--Font-awesome CSS-->
+        <!-- Font Awesome -->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
         <!--Ui-Block CSS-->
@@ -24,9 +25,13 @@
         <!--ui-select-->
         <link href="app/bower_components/ui-select/dist/select.min.css" rel="stylesheet">
 
-        <!--Core CSS -->
-        <link href="app/css/style.css" rel="stylesheet">
-        <link href="app/css/style-responsive.css" rel="stylesheet"/>
+        <!-- Theme style -->
+        <link href="app/bower_components/AdminLTE/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link href="app/bower_components/AdminLTE/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
+        <!-- custom css -->
+        <link href="app/css/custom.css" rel="stylesheet" type="text/css"/>
 
         <!--Css for notification-->
         <link href="app/css/ns-default.css" rel="stylesheet"/>
@@ -34,13 +39,15 @@
 
 
     </head>
-    <body ng-controller="AppCtrl">
+    <body ng-controller="AppCtrl" class="hold-transition fixed skin-blue sidebar-mini">
 
-        <section id="container" ui-view=""></section>
+        <div class="wrapper" ui-view=""></div>
 
         <!--Core js-->
-        <script src="app/js/jquery.js"></script>
-        <script src="app/js/bootstrap.min.js"></script>
+        <!-- jQuery 2.1.4 -->
+        <script src="app/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="app/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
         <script src="app/js/underscore-min.js"></script>
 
@@ -74,6 +81,10 @@
 
         <!--ui-select-->
         <script src="app/bower_components/ui-select/dist/select.min.js"></script>
+
+        <!-- SlimScroll 1.3.0 -->
+        <script src="app/bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="app/bower_components/AdminLTE/dist/js/app.js" type="text/javascript"></script>
 
         <!-- Page level Js (Angular Js Controller, Directive, Constant etc) -->
         <script src="app/js/directive.js"></script>

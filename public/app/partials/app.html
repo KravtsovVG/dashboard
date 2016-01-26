@@ -1,10 +1,11 @@
 <!--Header Section-->
-<div data-ng-include=" 'app/partials/common/header.html'"></div>
+<header class="main-header"data-ng-include=" 'app/partials/common/header.html'"></header>
 
 <!--Nav Section-->
-<div data-ng-include=" 'app/partials/common/nav.html'"></div>
+<aside class="main-sidebar" data-ng-include=" 'app/partials/common/nav.html'"></aside>
 
 <!--Main Content Section-->
-<section id="main-content">
-    <section class="wrapper" ui-view=""></section>
-</section>
+
+<div class="content-wrapper" ui-view=""></div>
+
+<footer class="main-footer" data-ng-include=" 'app/partials/common/footer.html'"></footer>

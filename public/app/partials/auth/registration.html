@@ -1,19 +1,38 @@
-<form class="form-signin" ng-submit="doRegistrationFn();">
-    <h2 class="form-signin-heading">registration now</h2>
-    <div class="login-wrap">
-        <p>Enter your personal details below</p>
-        <input type="text" class="form-control" placeholder="Full Name" ng-model="reg.name">
-        <input type="text" class="form-control" placeholder="Email" ng-model="reg.email">
-        <input type="password" class="form-control" placeholder="Password" ng-model="reg.password">
-        <input type="password" class="form-control" placeholder="Re-type Password" ng-model="reg.cpass">
-        <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
-        <div class="registration">
-            Already Registered.
-            <a class="" href ui-sref="signin">
-                Login
-            </a>
-        </div>
-
+<div class="register-box">
+    <div class="register-logo">
+        <a href><b>Dashboard</b></a>
     </div>
 
-</form>
+    <div class="register-box-body">
+        <p class="login-box-msg">Register Now</p>
+
+        <form ng-submit="doRegistrationFn();">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Full Name" ng-model="reg.name">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Email" ng-model="reg.email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Password" ng-model="reg.password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Re-type Password" ng-model="reg.cpass">
+                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4 pull-right">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <a href ui-sref="signin" class="text-center">Already Registered? Login</a>
+    </div>
+    <!-- /.form-box -->
+</div>

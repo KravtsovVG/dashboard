@@ -1,29 +1,47 @@
-<!--header start-->
-<header class="header fixed-top clearfix">
-    <!--logo start-->
-    <div class="brand">
-        <a href class="logo">Dashboard</a>
-        <div class="sidebar-toggle-box" small-nav>
-            <div class="fa fa-bars"></div>
-        </div>
-    </div>
-    <!--logo end-->
-    <div class="top-nav clearfix">
-        <h3 style="margin: 0px;text-align: center">Dashboard</h3>
-        <ul class="nav pull-right top-menu">
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href>
-                    <span class="username">{{me.name}}</span>
-                    <b class="caret"></b>
+
+<!-- Logo -->
+<a href class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><b>D</b></span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><b>Dashboard</b></span>
+</a>
+
+<!-- Header Navbar: style can be found in header.less -->
+<nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="app/bower_components/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                    <span class="hidden-xs">{{me.name}}</span>
                 </a>
-                <ul class="dropdown-menu extended logout">
-                    <li><a href ui-sref="app.profile"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                    <li><a href ng-click="doLogoutFn()"><i class="fa fa-key"></i>Logout</a></li>
+                <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header">
+                        <img src="app/bower_components/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <p>
+                            {{me.name}}
+                            <small>{{me.email}}</small>
+                        </p>
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a href ui-sref="app.profile" class="btn btn-default btn-flat">Profile</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href ng-click="doLogoutFn()" class="btn btn-default btn-flat">Logout</a>
+                        </div>
+                    </li>
                 </ul>
             </li>
-            <!-- user login dropdown end -->
         </ul>
-        <!--search & user info end-->
     </div>
-</header>
-<!--header end-->
+</nav>
