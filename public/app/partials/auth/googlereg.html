@@ -1,0 +1,62 @@
+
+<div class="modal fade googleReg" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" aria-hidden="false">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="panel-body">
+                <form class="reg-page" name="registrationForm" ng-submit="googleRegistrationFn()">
+                    <div class="reg-header">
+                        <h2>Register a new account</h2>
+                    </div>
+                    <div class="form-group clearfix">
+                        <div class="col-sm-6">
+                            <label>
+                                Full Name
+                                <span class="error" ng-show="registrationForm.firstname.$error.required" style="color: RED">*</span>
+                                <span class="valid" ng-show="registrationForm.firstname.$valid" style="color: #31B404">*</span>
+                            </label>
+                            <input type="text" name="firstname" class="form-control margin-bottom-20" ng-model="googlereg.name" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>
+                                Email Address
+                                <span class="error" ng-show="registrationForm.email.$invalid" style="color: RED">*</span>
+                                <span class="valid" ng-show="registrationForm.email.$valid" style="color: #31B404">*</span>
+                            </label>
+                            <input type="email" name="email" class="form-control margin-bottom-20" ng-model="googlereg.email" required>  
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <div class="col-sm-6">
+                            <label>
+                                Password
+                                <span class="error" ng-show="registrationForm.password.$error.required" style="color: RED">*</span>
+                                <span class="valid" ng-show="registrationForm.password.$valid" style="color: #31B404">*</span>
+                            </label>
+                            <input type="password" name="password" class="form-control margin-bottom-20" ng-model="googlereg.password" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>
+                                Confirm Password
+                                <span class="error" ng-show="registrationForm.cpassword.$error.required" style="color: RED">*</span>
+                                <span class="valid" ng-show="registrationForm.cpassword.$valid" style="color: #31B404">*</span>
+                            </label>
+                            <input type="password" name="cpassword" class="form-control margin-bottom-20" ng-model="cpassword" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span class="error" ng-show="googlereg.password && cpassword && cpassword != googlereg.password" style="color: RED">Password Mismatch</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button ng-disabled="registrationForm.$invalid" class="btn btn-success" type="submit">Register</button>                        
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

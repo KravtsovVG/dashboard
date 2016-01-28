@@ -23,7 +23,7 @@ Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authPr
     });
 });
 
-Auth.controller('AppCtrl', function ($scope, $rootScope) {
+Auth.controller('AppCtrl', function ($scope, $rootScope, $auth, AuthServices) {
     $rootScope.login = false;
     $scope.setFlash = function (mtype, msg, time) {
 
@@ -53,6 +53,38 @@ Auth.controller('AppCtrl', function ($scope, $rootScope) {
         });
         notification.show();
     }
+
+
+    $scope.authenticate = function (provider) {
+        $auth.authenticate(provider).then(function (res) {
+            if (res.data.data) {
+                var d = res.data.data;
+                $scope.googlereg = {
+                    name: d.name,
+                    email: d.email,
+                    google: d.sub,
+                };
+                $(".googleReg").modal('show');
+            } else {
+                $scope.setFlash('s', 'Login successfully');
+                window.location.reload();
+            }
+
+        });
+    };
+
+    $scope.googleRegistrationFn = function () {
+        var obj = angular.copy($scope.googlereg);
+        console.log(obj);
+        AuthServices.doRegistration(obj).success(function (res) {
+            if (res.flag) {
+                window.location.reload();
+                $scope.setFlash('s', res.message)
+            } else {
+                $scope.setFlash('e', res.message);
+            }
+        })
+    }
 })
 
 Auth.controller('LoginCtrl', function ($scope, AuthServices, $timeout, $auth, $rootScope) {
@@ -71,36 +103,6 @@ Auth.controller('LoginCtrl', function ($scope, AuthServices, $timeout, $auth, $r
         })
     }
 
-    $scope.authenticate = function (provider) {
-        $auth.authenticate(provider).then(function (res) {
-            if (res.data.data) {
-                var d = res.data.data;
-                $scope.reg = {
-                    name: d.name,
-                    email: d.email,
-                    google: d.sub,
-                };
-                $(".googleReg").modal('show');
-            } else {
-                $scope.setFlash('s', 'Login successfully');
-                window.location.reload();
-            }
-
-        });
-    };
-
-    $scope.googleRegistrationFn = function () {
-        var obj = angular.copy($scope.reg);
-        console.log(obj);
-        AuthServices.doRegistration(obj).success(function (res) {
-            if (res.flag) {
-                window.location.reload();
-                $scope.setFlash('s', res.message)
-            } else {
-                $scope.setFlash('e', res.message);
-            }
-        })
-    }
 
 
 })
