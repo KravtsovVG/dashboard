@@ -1,13 +1,27 @@
-## New Project Base
+## MainEvent Dashboard
 
-A starting point for your next project:
+Reporting and project management for Main Event anlytics
 * Laravel 5.2
 * Angular
 * Bootstrap, with an off-the-shelf theme so it should be easily replacable
 * Google Auth for signup and login
-* Forgot password, etc...
-* Simple models and views for projects and users
-* Ability to invite users to projects and assign owner status
 
-This is a compilation of other projects, but any new material in this is open-sourced under [MIT license](http://opensource.org/licenses/MIT), so feel free to use it as a starting point for your own projects!
+### Installation
+```
+git clone git@github.com:maineventio/dashboard.git
+chown ec2-user:apache dashboard -R
+chmod g+w dashboard -R
+cd dashboard
+
+sudo yum install php56 php56-mbstring php56-pdo 
+sudo yum install nodejs npm --enablerepo=epel
+sudo npm install -g npm bower
+bower install
+
+curl  -k -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+composer install
+```
+
+
 
