@@ -8,6 +8,11 @@ Reporting and project management for Main Event anlytics
 
 ### Installation
 ```
+git clone git@github.com:maineventio/dashboard.git
+chown ec2-user:apache dashboard -R
+chmod g+w dashboard -R
+cd dashboard
+
 sudo yum install php56 php56-mbstring php56-pdo 
 sudo yum install nodejs npm --enablerepo=epel
 sudo npm install -g npm bower
