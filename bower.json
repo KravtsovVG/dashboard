@@ -1,10 +1,7 @@
 {
-  "name": "Rejeb",
-  "description": "Demo Laravel + Angularjs",
+  "name": "Dashbaord",
+  "description": "MainEvent dashboard",
   "main": "",
-  "authors": [
-    "Gaurang Ghinaiya <gaurangghinaiya@yahoo.in>"
-  ],
   "license": "MIT",
   "moduleType": [],
   "homepage": "",
