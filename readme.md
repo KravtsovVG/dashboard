@@ -13,7 +13,7 @@ chown ec2-user:apache dashboard -R
 chmod g+w dashboard -R
 cd dashboard
 
-sudo yum install php56 php56-mbstring php56-pdo 
+sudo yum install php56 php56-mbstring php56-pdo php56-mysqlnd
 sudo yum install nodejs npm --enablerepo=epel
 sudo npm install -g npm bower
 bower install
