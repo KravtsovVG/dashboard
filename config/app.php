@@ -81,8 +81,6 @@ return [
      */
     'key' => env('APP_KEY', 'SomeRandomString'),
     'cipher' => 'AES-256-CBC',    
-    'google_secret' => 'CEsezizY-1d02hzSltcBiYOC',
-    'token_secret' => 'b23c41c4b5c6af6f243086094a577982',
     /*
       |--------------------------------------------------------------------------
       | Logging Configuration

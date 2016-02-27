@@ -61,9 +61,7 @@ var App = angular.module('PPO', modules)
 
 
 App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout, $interval, $state, $stateParams) {
-
     $scope.goTo = function (state, params) {
-
         $timeout(function () {
             if (params) {
                 $state.transitionTo(state, angular.extend($stateParams, params));
@@ -79,6 +77,27 @@ App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout,
 
     $scope.format = 'dd-MMMM-yyyy';
 
+    $scope.getProjectsFn = function () {
+        AdminServices.getProject().success(function (res) {
+            if (res.flag) {
+                $scope.projects = res.data;
+            }
+        })
+    }
+    $scope.getProjectsFn();
+
+//    $timeout(function () {
+//        if ($rootScope.proId) {
+//            $rootScope.proId = $rootScope.proId * 1;
+//            console.log($rootScope.proId);
+//        }
+//    }, 3000);
+
+    $scope.goToProjectSettingFn = function (projcet) {
+        if (projcet) {
+            $scope.goTo('app.projectsetting', {id: projcet});
+        }
+    }
 
     $scope.loggedInUserFn = function () {
         AdminServices.loggedInUser().success(function (res) {
@@ -145,6 +164,9 @@ App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout,
 
 App.factory('AdminServices', function ($http) {
     return {
+        getProject: function () {
+            return $http.get('project');
+        },
         loggedInUser: function () {
             return $http.get('loggedinuser');
         },

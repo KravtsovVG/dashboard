@@ -12,7 +12,11 @@
             <a href><i class="fa fa-circle text-success"></i> Online</a>
         </div>
     </div>
-    <!-- /.search form -->
+    <!-- search form -->
+    <div class="user-panel">
+        <select name="project" class="form-control" ng-model="proId" ng-change="goToProjectSettingFn(proId)" placeholder="Select Project" ng-options="project.id as project.name for project in projects">           
+        </select>
+    </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
         <li>

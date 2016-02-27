@@ -178,6 +178,12 @@ class ProjectController extends Controller {
     public function update($id) {
         $input = Request::all();
         $input['user_id'] = Auth::User()->id;
+        $chkExist = ProjectUser::where('project_id', $id)->where('user_id', $input['user_id'])->first();
+        if (!$chkExist) {
+            $message = 'You can not authorized change this.';
+            return Response()->json(ResponseManager::getError('', 10, $message));
+        }
+
         $validation = Project::validateUpdate($input, $id);
         if ($validation->fails()) {
             $message = $validation->messages()->first();
