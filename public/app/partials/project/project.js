@@ -117,7 +117,7 @@ Project.controller('ViewEditProjectCtrl', function ($scope, $timeout, Project) {
 Project.controller('SettingProjectCtrl', function ($scope, $rootScope, ProjectService, Project, $stateParams) {
     $scope.project = {};
     $rootScope.proId = $stateParams.id * 1;
-    console.log($rootScope.proId);
+    
     if (Project.data.flag) {
         $scope.project = Project.data.data;
         $scope.prousers = $scope.project.users;

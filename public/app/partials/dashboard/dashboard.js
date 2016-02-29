@@ -18,11 +18,11 @@ Dashboard.config(function ($stateProvider) {
 });
 
 
-Dashboard.controller('DashboardCtrl', function ($scope, DashboardService) {
+Dashboard.controller('DashboardCtrl', function ($scope, $state, $rootScope, DashboardService) {
     $scope.dashboard = {};
 });
 
 Dashboard.service('DashboardService', function ($http) {
-    return{
+    return{        
     }
 });
