@@ -105,7 +105,7 @@ App.controller('AppCtrl', function ($scope, $rootScope, $cookies, AdminServices,
     $scope.goToProjectSettingFn = function (projcet) {
         if (projcet) {
             $cookies.put('ProId', projcet);
-            $scope.goTo('app.projectsetting', {id: projcet});
+//            $scope.goTo('app.projectsetting', {id: projcet});
             $scope.setMainProjectFn();
         }
     }
