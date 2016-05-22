@@ -12,9 +12,19 @@
             <a href><i class="fa fa-circle text-success"></i> Online</a>
         </div>
     </div>
-    <!-- /.search form -->
+    <!-- search form -->
+    <div class="user-panel">
+        <select name="project" class="form-control" ng-model="proId" ng-change="goToProjectSettingFn(proId)" placeholder="Select Project" ng-options="project.id as project.name for project in projects">           
+        </select>
+    </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
+        <li>
+            <a  ui-sref-active="active" href ui-sref="app.project.add">
+                <i class="fa fa-plus"></i>
+                <span>Add Project</span>
+            </a>
+        </li>
         <li>
             <a  ui-sref-active="active" href ui-sref="app.dashboard">
                 <i class="fa fa-dashboard"></i>
@@ -22,9 +32,21 @@
             </a>
         </li>
         <li>
-            <a ui-sref-active="active" href ui-sref="app.project">
+            <a  ui-sref-active="active" href ui-sref="app.live">
+                <i class="fa fa-signal"></i>
+                <span>Live</span>
+            </a>
+        </li>
+        <li>
+            <a  ui-sref-active="active" href ui-sref="app.integration">
+                <i class="fa fa-plus-circle"></i>
+                <span>Integration</span>
+            </a>
+        </li>
+        <li>
+            <a ui-sref-active="active" href ui-sref="app.projectsetting({id:proId})">
                 <i class="fa fa-product-hunt"></i>
-                <span>Project</span>
+                <span>Setting</span>
             </a>
         </li>
     </ul>

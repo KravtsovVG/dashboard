@@ -114,9 +114,10 @@ Project.controller('ViewEditProjectCtrl', function ($scope, $timeout, Project) {
     }
 });
 
-Project.controller('SettingProjectCtrl', function ($scope, ProjectService, Project, $stateParams) {
+Project.controller('SettingProjectCtrl', function ($scope, $rootScope, ProjectService, Project, $stateParams) {
     $scope.project = {};
-
+    $rootScope.proId = $stateParams.id * 1;
+    
     if (Project.data.flag) {
         $scope.project = Project.data.data;
         $scope.prousers = $scope.project.users;
@@ -176,7 +177,7 @@ Project.controller('SettingProjectCtrl', function ($scope, ProjectService, Proje
             if (res.flag) {
                 $scope.setFlash('s', res.message);
             } else {
-                $scope.setFlash('s', res.message);
+                $scope.setFlash('e', res.message);
             }
         })
     }
@@ -209,7 +210,6 @@ Project.controller('invitePeopleCtrl', function ($scope, $timeout, Users, Projec
 
     $scope.updateProjectFn = function () {
         var obj = angular.copy($scope.pro);
-        console.log(obj);
         ProjectService.updateProject(obj, $scope.project.id).success(function (res) {
             if (res.flag) {
                 $(".invitePeople").modal('hide');

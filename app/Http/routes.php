@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/auth/signup', 'Common\LoginController@doSignup');
     Route::post('/auth/google', 'Common\LoginController@google');
     Route::post('/auth/google-signup', 'Common\LoginController@googleReg');
+    Route::get('/auth/client-id', 'Common\LoginController@clientId');
     Route::get('/acceptInvitation/{code}', 'Common\CommonController@invitation');
     Route::get('/loggedinuser', 'Common\LoginController@logginuser');
     Route::get('/logout', 'Common\LoginController@logout');
