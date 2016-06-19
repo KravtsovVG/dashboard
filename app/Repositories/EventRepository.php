@@ -13,4 +13,9 @@ interface EventRepository
      */
     public function eventNameSummary(array $filter = array());
 
+    /*
+     * Returns an array of summary stats based on the filter, bucketed by time slices.
+     */
+    public function histogram(array $filter = array());
+
 }
