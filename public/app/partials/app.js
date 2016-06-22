@@ -1,7 +1,7 @@
 /**
  * Created by Gaurnag Ghinaiya on 20-07-2015.
  */
-var modules = ['ui.router', 'ui.bootstrap', 'Directives', 'Constants', 'blockUI', 'xeditable', 'ui.select', 'ngSanitize'];
+var modules = ['ui.router', 'ui.bootstrap', 'ngCookies', 'Directives', 'Constants', 'blockUI', 'xeditable', 'ui.select', 'ngSanitize'];
 
 var App = angular.module('PPO', modules)
         .run(
@@ -60,10 +60,8 @@ var App = angular.module('PPO', modules)
         })
 
 
-App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout, $interval, $state, $stateParams) {
-
+App.controller('AppCtrl', function ($scope, $rootScope, $cookies, AdminServices, $timeout, $interval, $state, $stateParams) {
     $scope.goTo = function (state, params) {
-
         $timeout(function () {
             if (params) {
                 $state.transitionTo(state, angular.extend($stateParams, params));
@@ -79,6 +77,40 @@ App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout,
 
     $scope.format = 'dd-MMMM-yyyy';
 
+    $scope.setMainProjectFn = function () {
+        if (!$rootScope.proId) {
+            $rootScope.proId = $scope.projects[0].id;
+        }
+        var proExist = $cookies.get('ProId');
+        if (proExist) {
+            proExist = proExist * 1;
+            $rootScope.proId = proExist;
+            $rootScope.MainPro = _.findWhere($scope.projects, {id: proExist});
+        } else {
+            $cookies.put('ProId', $rootScope.proId);
+            $rootScope.MainPro = _.findWhere($scope.projects, {id: $rootScope.proId * 1});
+        }
+    }
+
+    $scope.getProjectsFn = function () {
+        AdminServices.getProject().success(function (res) {
+            if (res.flag) {
+                $scope.projects = res.data;
+                $scope.setMainProjectFn();
+            }
+        })
+    }
+    $scope.getProjectsFn();
+
+    $scope.goToProjectSettingFn = function (projcet) {
+        if (projcet) {
+            $cookies.put('ProId', projcet);
+            if ($state.current.name == 'app.projectsetting') {
+                $scope.goTo('app.projectsetting', {id: projcet});
+            }
+            $scope.setMainProjectFn();
+        }
+    }
 
     $scope.loggedInUserFn = function () {
         AdminServices.loggedInUser().success(function (res) {
@@ -120,6 +152,7 @@ App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout,
     $scope.doLogoutFn = function () {
         AdminServices.doLogout().success(function (res) {
             if (res.flag) {
+                $cookies.remove('ProId');
                 location.reload();
             } else {
                 $scope.setFlash('e', 'Error while logout, Try again');
@@ -145,6 +178,9 @@ App.controller('AppCtrl', function ($scope, $rootScope, AdminServices, $timeout,
 
 App.factory('AdminServices', function ($http) {
     return {
+        getProject: function () {
+            return $http.get('project');
+        },
         loggedInUser: function () {
             return $http.get('loggedinuser');
         },

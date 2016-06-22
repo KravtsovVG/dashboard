@@ -88,7 +88,7 @@ class LoginController extends Controller {
             'iat' => time(),
             'exp' => time() + (2 * 7 * 24 * 60 * 60)
         ];
-        return JWT::encode($payload, Config::get('app.token_secret'));
+        return JWT::encode($payload, env('TOKEN_SECRET'));
     }
 
     public function google(Request $request) {
@@ -96,7 +96,8 @@ class LoginController extends Controller {
         $params = [
             'code' => $input['code'],
             'client_id' => $input['clientId'],
-            'client_secret' => Config::get('app.google_secret'),
+//            'client_secret' => Config::get('app.google_secret'),
+            'client_secret' => env('GOOGLE_SECRET'),
             'redirect_uri' => $input['redirectUri'],
             'grant_type' => 'authorization_code',
         ];
@@ -145,8 +146,13 @@ class LoginController extends Controller {
         $user->name = $profile['name'];
         return response()->json(['token' => $this->createToken($user), 'data' => $profile]);
     }
-    
-    public function googleReg(){
+
+    public function clientId() {
+        $clientId['clientId'] = env('CLIENT_ID');
+        return response()->json($clientId);
+    }
+
+    public function googleReg() {
         
     }
 

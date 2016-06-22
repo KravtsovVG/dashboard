@@ -4,13 +4,14 @@
   "main": "",
   "license": "MIT",
   "moduleType": [],
-  "homepage": "",
+  "homepage": "https://github.com/maineventio/dashboard",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "public/app/bower_components"
   ],
   "dependencies": {
     "angular": "~1.4.8",
@@ -22,6 +23,10 @@
     "satellizer": "~0.13.3",
     "ui-select": "angular-ui-select#~0.13.2",
     "angular-sanitize": "~1.4.8",
-    "AdminLTE": "admin-lte#~2.3.2"
-  }
+    "AdminLTE": "admin-lte#~2.3.2",
+    "angular-cookies": "~1.5.0"
+  },
+  "authors": [
+    "Gaurang Ghinaiya <gaurangghinaiya@yahoo.in>"
+  ]
 }

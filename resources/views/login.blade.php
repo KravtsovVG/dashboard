@@ -31,7 +31,7 @@
 
         <!--<div class="login-box" ui-view></div>-->
         <!-- jquery Js -->
-        <script src="app/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
+        <script src="app/bower_components/AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js" type="text/javascript"></script>
         <!-- Bootstrap 3.3.5 -->
         <script src="app/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 

@@ -45,7 +45,7 @@
 
         <!--Core js-->
         <!-- jQuery 2.1.4 -->
-        <script src="app/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
+        <script src="app/bower_components/AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js" type="text/javascript"></script>
         <!-- Bootstrap 3.3.5 -->
         <script src="app/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -65,7 +65,10 @@
 
         <!-- Angular Route -->
         <script src="app/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-
+        
+        <!-- Angular cookies-->
+        <script src="app/bower_components/angular-cookies/angular-cookies.min.js" type="text/javascript"></script>
+        
         <!-- Angular ui bootstrap-->
         <script src="app/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
         <script src="app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -102,6 +105,12 @@
 
         <!--Project Js-->
         <script src="app/partials/project/project.js"></script>
+        
+        <!--Live Js-->
+        <script src="app/partials/live/live.js"></script>
+        
+        <!--Integration Js-->
+        <script src="app/partials/integration/integration.js"></script>
 
     </body>
 

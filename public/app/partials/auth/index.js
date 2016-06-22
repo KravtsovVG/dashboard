@@ -1,7 +1,7 @@
 var modules = ['ui.router', 'blockUI', 'satellizer'];
 var Auth = angular.module('Auth', modules)
 
-Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authProvider) {
+Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authProvider, ClientIdProvider) {
     blockUIConfig.message = '';
     $urlRouterProvider
             .otherwise('/signin');
@@ -18,8 +18,10 @@ Auth.config(function ($stateProvider, $urlRouterProvider, blockUIConfig, $authPr
                 controller: 'RegistrationCtrl'
             })
 
-    $authProvider.google({
-        clientId: '703686035138-od835fb6tnjh8p31kq4qn29poo69s532.apps.googleusercontent.com',
+    ClientIdProvider.$get().getClientId().success(function (res) {
+        $authProvider.google({
+            clientId: atob(res.clientId),
+        });
     });
 });
 
@@ -114,7 +116,6 @@ Auth.controller('RegistrationCtrl', function ($scope, AuthServices) {
         if (obj.password != obj.cpass) {
             return $scope.setFlash('e', 'Password mismatch');
         }
-        console.log(obj);
         AuthServices.doRegistration(obj).success(function (res) {
             if (res.flag) {
                 window.location.reload();
@@ -137,5 +138,13 @@ Auth.factory('AuthServices', function ($http) {
         googleRegistration: function (obj) {
             return $http.post('auth/google-signup', obj);
         },
+    }
+});
+
+Auth.factory('ClientId', function ($http) {
+    return{
+        getClientId: function () {
+            return $http.get('auth/client-id');
+        }
     }
 });
