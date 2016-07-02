@@ -17,11 +17,7 @@
         <div class="col-md-12">
             <section class="panel">
                 <header class="panel-heading text-center fa-2x">
-                    <b>
-                        <!--<a href="#" editable-text="project.name" onbeforesave="changeNameFn($data,project.id)">-->
-                        {{ MainPro.name }}
-                        <!--</a>-->
-                    </b>
+                    <b>{{ MainPro.name }}</b>
                 </header>
             </section>
         </div>
@@ -87,5 +83,35 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <div class="row" ng-show="recentEvents.length">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Most recent events</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Event Name</th>
+                                <th>Time</th>
+                                <th style="width: 40px">Sender Ip</th>
+                            </tr>
+                            <tr ng-repeat="event in recentEvents">
+                                <td>{{$index + 1}}</td>
+                                <td>{{event.event_name}}</td>
+                                <td>{{event.ts_received * 1000 | date:'dd-MMM-yyyy @ h:mma'}}</td>
+                                <td>{{event.sender_ip}}</td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
 </section>
 <!-- /.content -->

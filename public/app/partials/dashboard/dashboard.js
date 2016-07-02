@@ -14,15 +14,27 @@ Dashboard.config(function ($stateProvider) {
                 url: '/dashboard',
                 templateUrl: 'app/partials/dashboard/dashboard.html',
                 controller: 'DashboardCtrl',
+                resolve: {
+                    Events: function (DashboardService) {
+                        return DashboardService.getRecentEvent();
+                    },
+                }
             })
 });
 
 
-Dashboard.controller('DashboardCtrl', function ($scope, $state, $rootScope, DashboardService) {
+Dashboard.controller('DashboardCtrl', function ($scope, Events) {
     $scope.dashboard = {};
+    $scope.recentEvents = []
+    if (Events.data) {
+        $scope.recentEvents = Events.data.data;
+    }
 });
 
 Dashboard.service('DashboardService', function ($http) {
-    return{        
+    return{
+        getRecentEvent: function () {
+            return $http.get('/get-recent-event');
+        },
     }
 });

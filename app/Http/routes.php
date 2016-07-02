@@ -46,6 +46,10 @@ Route::group(['middleware' => ['web']], function () {
     //User Ctrl
     Route::resource('/user', 'UserController');
 
+    // Event statistics controller
+    Route::resource('/events', 'EventsController');
+    Route::get('/get-recent-event', 'EventsController@getRecentEvents');
+
     //Project Master
     Route::resource('/project', 'ProjectController');
     Route::post('/delete-project-user', 'ProjectController@deleteProUser');
