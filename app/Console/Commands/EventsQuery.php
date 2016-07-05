@@ -64,6 +64,5 @@ class EventsQuery extends Command
 
         $fractal = new \League\Fractal\Manager();
         return $this->info(json_encode($fractal->createData($results)->toArray(), JSON_PRETTY_PRINT));
-
     }
 }

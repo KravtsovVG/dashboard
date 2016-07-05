@@ -9,15 +9,17 @@ use App\Http\Controllers\Controller;
 use App\Repositories\EventRepository;
 use Illuminate\Support\Facades\Artisan;
 
-class EventsController extends Controller {
-
+class EventsController extends Controller
+{
     protected $eventRepo;
 
-    public function __constructor(EventRepository $eventRepository) {
+    public function __constructor(EventRepository $eventRepository)
+    {
         $this->eventRepo = $eventRepository;
     }
 
-    public function recent() {
+    public function recent()
+    {
         // TODO: what project are we on?
         // TODO: apply any filters to the recent query, like most recent by event_name
         $options = array();
@@ -25,7 +27,8 @@ class EventsController extends Controller {
         return response()->json($results);
     }
 
-    public function histogram() {
+    public function histogram()
+    {
         $options = array();
         // TODO: have defaults, but allow override from Request params
         $options['startTimestamp'] = strtotime("48 hours ago");
