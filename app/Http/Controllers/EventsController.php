@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\EventRepository;
+use Illuminate\Support\Facades\Artisan;
 
 class EventsController extends Controller
 {
@@ -37,4 +37,17 @@ class EventsController extends Controller
         $results = $this->eventRepo->histogram($options);
         return response()->json($results);
     }
+
+    public function getRecentEvents() {
+
+        try {
+            $events = Artisan::call('events:query', [
+                        'endpoint' => 'recent'
+            ]);
+            print_r(Artisan::output());
+        } catch (Exception $e) {
+            return response()->json($e->getMessage());
+        }
+    }
+
 }

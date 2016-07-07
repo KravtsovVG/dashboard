@@ -48,6 +48,7 @@ Route::group(['middleware' => ['web']], function () {
 
     // Event statistics controller
     Route::resource('/events', 'EventsController');
+    Route::get('/get-recent-event', 'EventsController@getRecentEvents');
 
     //Project Master
     Route::resource('/project', 'ProjectController');
